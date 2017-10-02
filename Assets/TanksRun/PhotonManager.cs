@@ -30,7 +30,7 @@ public class PhotonManager : Photon.PunBehaviour {
 		// 讓 PUN 能自動同步載入場景, 可以避免在載入場景初始化時發生一些網路問題.
 		PhotonNetwork.automaticallySyncScene = true;
 	}
-
+	/*
 	public void ConnectToRegion(CloudRegionCode code,string version)
 	{
 		if (!offlineMode) 
@@ -42,7 +42,7 @@ public class PhotonManager : Photon.PunBehaviour {
 			PhotonNetwork.sendRateOnSerialize = 30;
 		}
 	}
-	/*
+
 	public void ConnectToBestRegion(string version)
 	{
 		if(!offlineMode)
@@ -58,6 +58,8 @@ public class PhotonManager : Photon.PunBehaviour {
 
 	void Start()
 	{
+		//PhotonNetwork.ConnectUsingSettings("0.1");  //連至大廳
+
 		PhotonNetwork.ConnectUsingSettings ("Tanks_v1.0");
 	}
 
