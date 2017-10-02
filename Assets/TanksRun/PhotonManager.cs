@@ -1,11 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PhotonManager : Photon.PunBehaviour {
 
 	public static PhotonManager instance;
 	public static GameObject localPlayer;
+
+	public Button joyRoomBtn;
+
+	//Character進入點
+	GameObject defaultSpawnPoint;
+
+	private bool offlineMode = false;
+	private bool connecting = false;
 
 	void Awake()
 	{
@@ -16,11 +26,38 @@ public class PhotonManager : Photon.PunBehaviour {
 		}
 		DontDestroyOnLoad (gameObject);
 		instance = this;
+
+		// 讓 PUN 能自動同步載入場景, 可以避免在載入場景初始化時發生一些網路問題.
+		PhotonNetwork.automaticallySyncScene = true;
 	}
+
+	public void ConnectToRegion(CloudRegionCode code,string version)
+	{
+		if (!offlineMode) 
+		{
+			PhotonNetwork.offlineMode = false;
+			connecting = true;
+			PhotonNetwork.ConnectToRegion (code,version);
+			PhotonNetwork.sendRate = 30;
+			PhotonNetwork.sendRateOnSerialize = 30;
+		}
+	}
+	/*
+	public void ConnectToBestRegion(string version)
+	{
+		if(!offlineMode)
+		{
+			PhotonNetwork.offlineMode = false;
+			connecting = true;
+			PhotonNetwork.Disconnect();
+			PhotonNetwork.ConnectToBestCloudServer (version);
+			PhotonNetwork.sendRate = 30;
+			PhotonNetwork.sendRateOnSerialize = 30;
+		}
+	}*/
 
 	void Start()
 	{
-		//PhotonNetwork.ConnectUsingSettings("0.1");  //連至大廳
 		PhotonNetwork.ConnectUsingSettings ("Tanks_v1.0");
 	}
 

@@ -142,8 +142,8 @@ public class ThirdPersonController : MonoBehaviour
         // Always orthogonal to the forward vector
         Vector3 right = new Vector3(forward.z, 0, -forward.x);
 
-        float v = Input.GetAxisRaw("Vertical");
-        float h = Input.GetAxisRaw("Horizontal");
+        float v = Input.GetAxisRaw("VerticalUI");
+        float h = Input.GetAxisRaw("HorizontalUI");
 
         // Are we moving backwards or looking backwards
         if (v < -0.2f)
